@@ -1,0 +1,78 @@
+import java.util.*;
+
+class Guest {
+    private String name;
+    private int age;
+    private String idProof;
+
+    public Guest(String name, int age, String idProof) {
+        this.name = name;
+        this.age = age;
+        this.idProof = idProof;
+    }
+
+    public String toString() {
+        return name + "," + age + "," + idProof;
+    }
+}
+
+class Reservation {
+    private String reservationId;
+    private String roomType;
+    private List<Guest> guests;
+
+    public Reservation(String reservationId, String roomType) {
+        this.reservationId = reservationId;
+        this.roomType = roomType;
+        guests = new ArrayList<>();
+    }
+
+    public void addGuest(Guest guest) {
+        guests.add(guest);
+    }
+
+    public String toString() {
+        String result =
+            "Reservation ID: " + reservationId +
+            " Room: " + roomType + "\n";
+
+        result += "Guests:\n";
+
+        for (Guest g : guests) {
+            result += g + "\n";
+        }
+
+        return result;
+    }
+}
+
+public class Question13 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String[] reservationData = sc.nextLine().split(",");
+
+        Reservation reservation = new Reservation(
+            reservationData[0],
+            reservationData[1]
+        );
+
+        int n = Integer.parseInt(reservationData[2]);
+
+        for (int i = 0; i < n; i++) {
+            String[] guestData = sc.nextLine().split(",");
+
+            Guest guest = new Guest(
+                guestData[0],
+                Integer.parseInt(guestData[1]),
+                guestData[2]
+            );
+
+            reservation.addGuest(guest);
+        }
+
+        System.out.println(reservation);
+
+        sc.close();
+    }
+}
